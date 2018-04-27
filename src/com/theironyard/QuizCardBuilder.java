@@ -24,9 +24,9 @@ public class QuizCardBuilder {
         JPanel mainPanel = new JPanel();
         Font bigFont = new Font("sanserif", Font.BOLD, 24);
         question = new JTextArea(6, 20);
-        question = setLineWrap(true);
-        question = setWrapStyleWord(true);
-        question = setFont(bigFont);
+        question.setLineWrap(true);
+        question.setWrapStyleWord(true);
+        question.setFont(bigFont);
 
         JScrollPane qScroller = new JScrollPane(question);
         qScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -83,7 +83,7 @@ public class QuizCardBuilder {
     public class SaveMenuListener implements ActionListener {
         public void actionPerformed(ActionEvent ev) {
             QuizCard card = new QuizCard(question.getText(), answer.getText());
-            cardList.ass(card);
+            cardList.add(card);
 
             JFileChooser fileSave = new JFileChooser();
             fileSave.showSaveDialog(frame);
@@ -94,12 +94,18 @@ public class QuizCardBuilder {
         }
     }
 
-    public class NewMenuListener ImplementsActionListener {
+    public class NewMenuListener implements ActionListener {
         public void actionPerformed(ActionEvent ev) {
             cardList.clear();
             clearCard();
         }
     }
+
+    public void clearCard(){
+        question.setText("");
+        answer.setText("");
+        question.requestFocus();
+    }//inner class close
 
     private void saveFile(File file) {
         try {
